@@ -364,6 +364,7 @@ def menu_graph():
 			# Perform BFS traversal starting from vertex 0
 			source = input("Insira o vértice de origem: ")
 			print("BFS starting from : "+source)
+			source = _graph.vertex_get(source)
 			bfs(source, visited)
 		case (0):
 			clear_warn()
@@ -615,11 +616,11 @@ def bfs(source, visited):
         # Get all adjacent vertices of the dequeued 
         # vertex. If an adjacent has not been visited, 
         # mark it visited and enqueue it
-        for v in _graph.vertices[curr]:
+        for v in _graph.vertex_get_neighbors(curr): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			# Get the vertex index
-            v = _graph.vertices.index(v)
-            if not visited[v]:
-                visited[v] = True
+            index = _graph.vertices.index(v)
+            if not visited[index]:
+                visited[index] = True
                 q.append(v)
 # ---------------------------- ----------------- --------------------------- #
 
