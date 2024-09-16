@@ -17,10 +17,11 @@
 import os
 import platform
 import classes.Graph as Graph
+from collections import deque
 
 LINUX = (platform.system() == "Linux")
 WINDOWS = (platform.system() == "Windows")
-DEBUG = True
+DEBUG = False
 if (WINDOWS):
 	import msvcrt
 
@@ -199,7 +200,7 @@ def print_list():
 
 # Create a Directed Graph as show in reference.png
 if DEBUG:
-	_graph = Graph.Graph(False, False)
+	_graph = Graph.Graph(False, True)
 	_graph.vertex_add("1")
 	_graph.vertex_add("2")
 	_graph.vertex_add("3")
@@ -350,16 +351,20 @@ def menu_graph():
 			return False
 		case (6): # Deep First Search
 
-			source = input("Insira o rótulo de origem: ")
+			source = input("Insira o vértice de origem: ")
 			print("DFS from source:", source)
 			source = _graph.vertex_get(source)
 			dfs(source)
 	
 			pass
-
-
 		case (7): # Breath First Search
-			pass
+			# Mark all the vertices as not visited
+			visited = [False] * len(_graph.vertices)
+
+			# Perform BFS traversal starting from vertex 0
+			source = input("Insira o vértice de origem: ")
+			print("BFS starting from : "+source)
+			bfs(source, visited)
 		case (0):
 			clear_warn()
 			return True
@@ -579,7 +584,6 @@ def dfs_rec(visited, source):
 
     # Recursively visit all adjacent vertices
     # that are not visited yet
-	
     for i in _graph.vertex_get_neighbors(source): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         if not visited[i]:
             dfs_rec(visited, i)
@@ -592,8 +596,31 @@ def dfs(source):
 
 # ---------------------------- Breadth First Search --------------------------- #
 # Breadth First Search
-def breadth_first_search():
-	pass
+def bfs(source, visited):
+  
+    # Create a queue for BFS
+    q = deque()
+
+    # Mark the source node as visited and enqueue it
+    visited[_graph.vertices.index(source)] = True
+    q.append(source)
+
+    # Iterate over the queue
+    while q:
+      
+        # Dequeue a vertex from queue and print it
+        curr = q.popleft()
+        print(curr, end=" ")
+
+        # Get all adjacent vertices of the dequeued 
+        # vertex. If an adjacent has not been visited, 
+        # mark it visited and enqueue it
+        for v in _graph.vertices[curr]:
+			# Get the vertex index
+            v = _graph.vertices.index(v)
+            if not visited[v]:
+                visited[v] = True
+                q.append(v)
 # ---------------------------- ----------------- --------------------------- #
 
 # ----------------------------------------------------------------------------- #
