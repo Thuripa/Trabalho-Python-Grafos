@@ -20,7 +20,7 @@ import classes.Graph as Graph
 
 LINUX = (platform.system() == "Linux")
 WINDOWS = (platform.system() == "Windows")
-DEBUG = False
+DEBUG = True
 if (WINDOWS):
 	import msvcrt
 
@@ -197,17 +197,20 @@ def print_list():
 
 	input_char(_inputContinue)
 
+# Create a Directed Graph as show in reference.png
 if DEBUG:
-	_graph = Graph.Graph(True, True)
-	_graph.vertex_add("a")
-	_graph.vertex_add("b")
-	_graph.vertex_add("c")
-	_graph.vertex_add("d")
-	_graph.vertex_add("e")
+	_graph = Graph.Graph(False, False)
+	_graph.vertex_add("1")
 	_graph.vertex_add("2")
-	_graph.edge_add("a", "b", 1)
-	_graph.edge_add("a", "c", 2)
-	_graph.edge_add("b", "a", 7)
+	_graph.vertex_add("3")
+	_graph.vertex_add("4")
+	_graph.vertex_add("5")
+	_graph.edge_add("1", "2", 0)
+	_graph.edge_add("2", "4", 0)
+	_graph.edge_add("4", "1", 0)
+	_graph.edge_add("4", "5", 0)
+	_graph.edge_add("5", "3", 0)
+	_graph.edge_add("3", "1", 0)
 
 
 # ---------------------------------------------------------------------------- #
@@ -349,7 +352,8 @@ def menu_graph():
 
 			source = input("Insira o rótulo de origem: ")
 			print("DFS from source:", source)
-			dfs(_graph.vertices, source)
+			source = _graph.vertex_get(source)
+			dfs(source)
 	
 			pass
 
@@ -566,23 +570,24 @@ def open_file():
 	pass
 
 # ----------------------------- Deep First Search ---------------------------- #
-def dfs_rec(adj, visited, s):
+def dfs_rec(visited, source):
     # Mark the current vertex as visited
-    visited[adj.index(s)] = True
+    visited[_graph.vertices.index(source)] = True
 
     # Print the current vertex
-    print(s, end=" ")
+    print(source, end=" ")
 
     # Recursively visit all adjacent vertices
     # that are not visited yet
-    for i in adj[s]:
+	
+    for i in _graph.vertex_get_neighbors(source): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         if not visited[i]:
-            dfs_rec(adj, visited, i)
+            dfs_rec(visited, i)
 
-def dfs(adj, s):
-    visited = [False] * len(adj)
+def dfs(source):
+    visited = [False] * len(_graph.vertices)
     # Call the recursive DFS function
-    dfs_rec(adj, visited, s)
+    dfs_rec(visited, source)
 # ---------------------------- ----------------- ------------------------------ #
 
 # ---------------------------- Breadth First Search --------------------------- #
