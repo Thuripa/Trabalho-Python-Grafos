@@ -297,6 +297,8 @@ def menu_graph():
 	[   3   ] - Print List Graph
 	[   4   ] - Print Matrix Graph
 	[   5   ] - Show Neighbors
+	[   6   ] - Deep First Search
+	[   7   ] - Breadth First Search  
 	[ 0 / Q ] - Return to menu
 	""")
 	_opt = menu_input()
@@ -343,6 +345,17 @@ def menu_graph():
 
 			set_warn(_string)
 			return False
+		case (6): # Deep First Search
+
+			source = input("Insira o rótulo de origem: ")
+			print("DFS from source:", source)
+			dfs(_graph.vertices, source)
+	
+			pass
+
+
+		case (7): # Breath First Search
+			pass
 		case (0):
 			clear_warn()
 			return True
@@ -548,9 +561,39 @@ def menu_edges():
 	set_warn(_invalidOption)
 	return False
 
-# ---------------------------------------------------------------------------- #
-#                                   Main Loop                                  #
-# ---------------------------------------------------------------------------- #
+# Open a .txt file to create a Graph
+def open_file():
+	pass
+
+# ----------------------------- Deep First Search ---------------------------- #
+def dfs_rec(adj, visited, s):
+    # Mark the current vertex as visited
+    visited[adj.index(s)] = True
+
+    # Print the current vertex
+    print(s, end=" ")
+
+    # Recursively visit all adjacent vertices
+    # that are not visited yet
+    for i in adj[s]:
+        if not visited[i]:
+            dfs_rec(adj, visited, i)
+
+def dfs(adj, s):
+    visited = [False] * len(adj)
+    # Call the recursive DFS function
+    dfs_rec(adj, visited, s)
+# ---------------------------- ----------------- ------------------------------ #
+
+# ---------------------------- Breadth First Search --------------------------- #
+# Breadth First Search
+def breadth_first_search():
+	pass
+# ---------------------------- ----------------- --------------------------- #
+
+# ----------------------------------------------------------------------------- #
+#                                   Main Loop                                   #
+# ----------------------------------------------------------------------------- #
 
 # Loop until menu told to quit.
 while(True):
