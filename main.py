@@ -21,7 +21,7 @@ from collections import deque
 
 LINUX = (platform.system() == "Linux")
 WINDOWS = (platform.system() == "Windows")
-DEBUG = False
+DEBUG = True
 if (WINDOWS):
 	import msvcrt
 
@@ -303,6 +303,7 @@ def menu_graph():
 	[   5   ] - Show Neighbors
 	[   6   ] - Deep First Search
 	[   7   ] - Breadth First Search  
+	[   8   ] - Dijkistra Transversal
 	[ 0 / Q ] - Return to menu
 	""")
 	_opt = menu_input()
@@ -366,6 +367,12 @@ def menu_graph():
 			print("BFS starting from : "+source)
 			source = _graph.vertex_get(source)
 			bfs(source, visited)
+		case (8): # Dijkistra
+			# Perform Dijkistra traversal starting from vertex 'source'''
+			source = input("Insira o vértice de origem: ")
+			print("Dijkistra starting from : "+source)
+			source = _graph.vertex_get(source)
+			dijkstra(source)	
 		case (0):
 			clear_warn()
 			return True
@@ -622,6 +629,63 @@ def bfs(source, visited):
             if not visited[index]:
                 visited[index] = True
                 q.append(v)
+# ---------------------------- ----------------- --------------------------- #
+
+# --------------------------------- Dijkstra ------------------------------- #
+
+	# A utility function to find the vertex with
+	# minimum distance value, from the set of vertices
+	# not yet included in shortest path tree
+def minDistance(dist, sptSet):
+
+    # Initialize minimum distance for next node
+    min = sys.maxsize
+
+    # Search not nearest vertex not in the
+    # shortest path tree
+    for u in range(V):
+        if dist[u] < min and sptSet[u] == False:
+            min = dist[u]
+            min_index = u
+
+    return min_index
+
+# Function that implements Dijkstra's single source
+# shortest path algorithm for a graph represented
+# using adjacency matrix representation
+def dijkstra(source):
+
+    dist = [sys.maxsize] * self.V
+    dist[source] = 0
+    sptSet = [False] * self.V
+
+    for cout in range(self.V):
+
+        # Pick the minimum distance vertex from
+        # the set of vertices not yet processed.
+        # x is always equal to src in first iteration
+        x = self.minDistance(dist, sptSet)
+
+        # Put the minimum distance vertex in the
+        # shortest path tree
+        sptSet[x] = True
+
+        # Update dist value of the adjacent vertices
+        # of the picked vertex only if the current
+        # distance is greater than new distance and
+        # the vertex in not in the shortest path tree
+        for y in range(self.V):
+            if self.graph[x][y] > 0 and sptSet[y] == False and \
+                    dist[y] > dist[x] + self.graph[x][y]:
+                dist[y] = dist[x] + self.graph[x][y]
+
+    printSolution(dist)
+
+# Print the Dijkstra solution	
+def printSolution(self, dist):
+        print("Vertex \tDistance from Source")
+        for node in range(self.V):
+            print(node, "\t", dist[node])
 # ---------------------------- ----------------- --------------------------- #
 
 # ----------------------------------------------------------------------------- #
