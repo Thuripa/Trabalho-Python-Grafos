@@ -368,7 +368,7 @@ def menu_graph():
 			source = _graph.vertex_get(source)
 			bfs(source, visited)
 		case (8): # Dijkistra
-			# Perform Dijkistra traversal starting from vertex 'source'''
+			# Perform Dijkistra traversal starting from vertex 'source'
 			source = input("Insira o vértice de origem: ")
 			print("Dijkistra starting from : "+source)
 			source = _graph.vertex_get(source)
@@ -592,7 +592,7 @@ def dfs_rec(visited, source):
 
     # Recursively visit all adjacent vertices
     # that are not visited yet
-    for i in _graph.vertex_get_neighbors(source): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    for i in _graph.vertex_get_neighbors(source): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         if not visited[i]:
             dfs_rec(visited, i)
 
@@ -623,7 +623,7 @@ def bfs(source, visited):
         # Get all adjacent vertices of the dequeued 
         # vertex. If an adjacent has not been visited, 
         # mark it visited and enqueue it
-        for v in _graph.vertex_get_neighbors(curr): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        for v in _graph.vertex_get_neighbors(curr): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			# Get the vertex index
             index = _graph.vertices.index(v)
             if not visited[index]:
@@ -655,16 +655,16 @@ def minDistance(dist, sptSet):
 # using adjacency matrix representation
 def dijkstra(source):
 
-    dist = [sys.maxsize] * self.V
+    dist = [sys.maxsize] * len(_graph.vertices)
     dist[source] = 0
-    sptSet = [False] * self.V
+    sptSet = [False] * len(_graph.vertices)
 
-    for cout in range(self.V):
+    for cout in range(len(_graph.vertices)):
 
         # Pick the minimum distance vertex from
         # the set of vertices not yet processed.
         # x is always equal to src in first iteration
-        x = self.minDistance(dist, sptSet)
+        x = minDistance(dist, sptSet)
 
         # Put the minimum distance vertex in the
         # shortest path tree
@@ -674,17 +674,17 @@ def dijkstra(source):
         # of the picked vertex only if the current
         # distance is greater than new distance and
         # the vertex in not in the shortest path tree
-        for y in range(self.V):
+        for y in range(len(_graph.vertices)): # ADAPTAR PRO CÓDIGO NOSSO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             if self.graph[x][y] > 0 and sptSet[y] == False and \
-                    dist[y] > dist[x] + self.graph[x][y]:
+                    dist[y] > dist[x] + self.graph[x][y]: 
                 dist[y] = dist[x] + self.graph[x][y]
 
     printSolution(dist)
 
-# Print the Dijkstra solution	
-def printSolution(self, dist):
+# Print the Dijkstra solution	 
+def printSolution(self, dist): # ADAPTAR PRO CÓDIGO NOSSO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         print("Vertex \tDistance from Source")
-        for node in range(self.V):
+        for node in range(len(_graph.vertices)):
             print(node, "\t", dist[node])
 # ---------------------------- ----------------- --------------------------- #
 
