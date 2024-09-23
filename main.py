@@ -21,7 +21,7 @@ from collections import deque
 
 LINUX = (platform.system() == "Linux")
 WINDOWS = (platform.system() == "Windows")
-DEBUG = True
+DEBUG = False
 if (WINDOWS):
 	import msvcrt
 
@@ -304,6 +304,7 @@ def menu_graph():
 	[   6   ] - Deep First Search
 	[   7   ] - Breadth First Search  
 	[   8   ] - Dijkistra Transversal
+	[   9   ] - Create a Graph automatically
 	[ 0 / Q ] - Return to menu
 	""")
 	_opt = menu_input()
@@ -373,6 +374,27 @@ def menu_graph():
 			print("Dijkistra starting from : "+source)
 			source = _graph.vertex_get(source)
 			dijkstra(source)	
+		case (9): # Create a Non Weighted and Non Directional Graph
+			_graph.vertex_add("A")
+			_graph.vertex_add("B")
+			_graph.vertex_add("C")
+			_graph.vertex_add("D")
+			_graph.vertex_add("E")
+			_graph.vertex_add("F")
+
+			_graph.edge_add("A", "B", 0)
+			_graph.edge_add("A", "D", 0)
+			_graph.edge_add("A", "C", 0)
+			_graph.edge_add("B", "A", 0)
+			_graph.edge_add("B", "D", 0)
+			_graph.edge_add("C", "E", 0)
+			_graph.edge_add("C", "F", 0)
+			_graph.edge_add("E", "F", 0)
+			_graph.edge_add("E", "C", 0)
+			_graph.edge_add("F", "C", 0)
+			_graph.edge_add("F", "E", 0)
+
+
 		case (0):
 			clear_warn()
 			return True
@@ -675,7 +697,7 @@ def dijkstra(source):
         # distance is greater than new distance and
         # the vertex in not in the shortest path tree
         for y in range(len(_graph.vertices)): # ADAPTAR PRO CÓDIGO NOSSO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            if self.graph[x][y] > 0 and sptSet[y] == False and \
+            if self.graph[x][y] > 0 and sptSe	[y] == False and \
                     dist[y] > dist[x] + self.graph[x][y]: 
                 dist[y] = dist[x] + self.graph[x][y]
 
