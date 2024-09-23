@@ -614,8 +614,8 @@ def dfs_rec(visited, source):
 
     # Recursively visit all adjacent vertices
     # that are not visited yet
-    for i in _graph.vertex_get_neighbors(source): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        if not visited[i]:
+    for i in _graph.vertex_get_neighbors(source.label): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        if not visited[_graph.vertices.index(i)]:
             dfs_rec(visited, i)
 
 def dfs(source):
@@ -645,7 +645,7 @@ def bfs(source, visited):
         # Get all adjacent vertices of the dequeued 
         # vertex. If an adjacent has not been visited, 
         # mark it visited and enqueue it
-        for v in _graph.vertex_get_neighbors(curr): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        for v in _graph.vertex_get_neighbors(curr.label): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			# Get the vertex index
             index = _graph.vertices.index(v)
             if not visited[index]:
