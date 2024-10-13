@@ -16,6 +16,7 @@
 
 import os
 import platform
+import sys
 import classes.Graph as Graph
 from collections import deque
 
@@ -35,11 +36,11 @@ _graph = None # The current graph we have created.
 _warning = "" # Warning message to be displayed, even after clearing console. 
 
 # Common texts
-_invalidOption = "Invalid Option."
-_notImplemented = "Not implemented."
-_selOption = "Select Option: "
-_inputLabel = "Input vertex's label: "
-_inputContinue = "Press any key to continue."
+_invalidOption = "\nInvalid Option."
+_notImplemented = "\nNot implemented."
+_selOption = "\nSelect Option: "
+_inputLabel = "\nInput vertex's label: "
+_inputContinue = "\nPress any key to continue."
 
 
 # ---------------------------------------------------------------------------- #
@@ -353,13 +354,18 @@ def menu_graph():
 			return False
 		case (6): # Deep First Search
 
+			clear_warn()
+
 			source = input("Insira o vértice de origem: ")
 			print("DFS from source:", source)
 			source = _graph.vertex_get(source)
 			dfs(source)
 	
-			pass
+			return False
 		case (7): # Breath First Search
+
+			clear_warn()
+
 			# Mark all the vertices as not visited
 			visited = [False] * len(_graph.vertices)
 
@@ -368,13 +374,22 @@ def menu_graph():
 			print("BFS starting from : "+source)
 			source = _graph.vertex_get(source)
 			bfs(source, visited)
+
+			return False
 		case (8): # Dijkistra
+
+			clear_warn()
+
 			# Perform Dijkistra traversal starting from vertex 'source'
 			source = input("Insira o vértice de origem: ")
 			print("Dijkistra starting from : "+source)
 			source = _graph.vertex_get(source)
 			dijkstra(source)	
+			return False
 		case (9): # Create a Non Weighted and Non Directional Graph
+
+			clear_warn()
+
 			_graph.vertex_add("A")
 			_graph.vertex_add("B")
 			_graph.vertex_add("C")
@@ -383,18 +398,19 @@ def menu_graph():
 			_graph.vertex_add("F")
 
 			_graph.edge_add("A", "B", 0)
-			_graph.edge_add("A", "D", 0)
 			_graph.edge_add("A", "C", 0)
+			_graph.edge_add("A", "D", 0)
 			_graph.edge_add("B", "A", 0)
 			_graph.edge_add("B", "D", 0)
+			_graph.edge_add("C", "A", 0)
 			_graph.edge_add("C", "E", 0)
 			_graph.edge_add("C", "F", 0)
-			_graph.edge_add("E", "F", 0)
 			_graph.edge_add("E", "C", 0)
+			_graph.edge_add("E", "F", 0)
 			_graph.edge_add("F", "C", 0)
 			_graph.edge_add("F", "E", 0)
 
-
+			return False
 		case (0):
 			clear_warn()
 			return True
@@ -609,24 +625,33 @@ def dfs_rec(visited, source):
     # Mark the current vertex as visited
     visited[_graph.vertices.index(source)] = True
 
+    
+
     # Print the current vertex
-    print(source, end=" ")
+    print(source.label, end=" ")
 
     # Recursively visit all adjacent vertices
     # that are not visited yet
-    for i in _graph.vertex_get_neighbors(source.label): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    for i in _graph.vertex_get_neighbors(source.label):
         if not visited[_graph.vertices.index(i)]:
             dfs_rec(visited, i)
 
 def dfs(source):
+
+    clear()
     visited = [False] * len(_graph.vertices)
+
     # Call the recursive DFS function
     dfs_rec(visited, source)
+
+
 # ---------------------------- ----------------- ------------------------------ #
 
 # ---------------------------- Breadth First Search --------------------------- #
 # Breadth First Search
 def bfs(source, visited):
+
+    clear()
   
     # Create a queue for BFS
     q = deque()
@@ -645,7 +670,7 @@ def bfs(source, visited):
         # Get all adjacent vertices of the dequeued 
         # vertex. If an adjacent has not been visited, 
         # mark it visited and enqueue it
-        for v in _graph.vertex_get_neighbors(curr.label): # ERRO AKI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        for v in _graph.vertex_get_neighbors(curr.label): 
 			# Get the vertex index
             index = _graph.vertices.index(v)
             if not visited[index]:
