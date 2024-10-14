@@ -290,7 +290,7 @@ def menu_create_graph():
 
 # ---------------------------- Graph Editing Menu ---------------------------- #
 def menu_graph():
-	#clear()
+	clear()
 
 	# This shouldn't happen!
 	if (_graph == None):
@@ -307,12 +307,10 @@ def menu_graph():
 	[   7   ] - Breadth First Search  
 	[   8   ] - Dijkistra Transversal
 	[   9   ] - Create a Graph automatically
-	[   C   ] - Coloration
-	[ 0 / Q ] - Return to menu
+	[   0   ] - Coloration
+	[   Q   ] - Return to menu
 	""")
 	_opt = menu_input()
-
-	print(_opt)
 
 	match(_opt):
 		case (1): # Vertex Options
@@ -416,12 +414,14 @@ def menu_graph():
 
 			return False
 		
-		case ('c'): # Colorization Method 
-			brute_force(_graph.vertices[0], _graph.vertices[-1])
+		case (0): # Colorization Method 
+			#brute_force(_graph.vertices[0], _graph.vertices[-1])
+			#welsh_powell()
+			dsatur()
 
-		case (0):
-			clear_warn()
-			return True
+		#case (0):
+		#	clear_warn()
+		#	return True
 			
 	set_warn(_invalidOption)
 	return False
